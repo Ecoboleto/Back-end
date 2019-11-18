@@ -2,7 +2,7 @@
 
 const express = require("express"),
   router = express.Router(),
-  Persona = require("../models/persona.model"),
+  Tarjeta = require("../models/tarjeta.model"),
   mongoose = require("mongoose");
 
 router.post("/registrar-persona", function(req, res) {
