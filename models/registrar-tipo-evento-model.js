@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const tipo_evento_schema = new mongoose.Schema(
     {
         tipo_evento: {type: String, required: true, unique: true},
+        estado: {type: String, required: true, unique: false}
     }
 );
 
