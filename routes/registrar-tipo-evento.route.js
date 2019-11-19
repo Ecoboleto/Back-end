@@ -10,7 +10,7 @@ router.post('/registrar-tipo-evento', function (req, res) {
 
     let nuevo_tipo_evento = new Tipos_Eventos({
         tipo_evento,
-        estado: 'activo'
+        estado: 'Activo'
     });
     nuevo_tipo_evento.save(
         function (err, tipos_eventosBD) {
