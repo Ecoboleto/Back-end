@@ -8,6 +8,6 @@ const encargado_recinto_schema = new Schema({
     edad: { type: Number, required: true },
     telefonos: [{ type:String, required: true}],
     genero: { type: String }
-},{ collection: 'Encargados_recintos' });
+},{ collection: 'encargados_recintos' });
 
 module.exports = model('Encargado_recinto',encargado_recinto_schema);
