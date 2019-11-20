@@ -10,8 +10,8 @@ require('dotenv').config();
 const tipos_eventos = require('./routes/registrar-tipo-evento.route');
 const encargado_recinto = require('./routes/encargado_recinto_route');
 const tarjetas = require('./routes/tarjeta.route');
-const impuesto = require('./routes/registro-impuest-route');
-const descuento = require('./routes/registro-descuent-route');
+const impuesto = require('./routes/impuestos.route');
+const descuento = require('./routes/descuentos.route');
 
 
 const app = express();

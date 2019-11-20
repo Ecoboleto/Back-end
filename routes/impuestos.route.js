@@ -4,20 +4,20 @@ const express=require("express"),
 //saco el enrutador de express a una variable
 router = express.Router(),
 //variable referencia de nuestro archivo model de impuesto
-Impuesto = require("../models/model-descuento"),
+Impuesto = require("../models/impuestos.model"),
 mongoose = require('mongoose');
 
 //Crear endpoint o URL o ruta especifica para tener una peticion
 //PARA REGISTRAR UN PRODUCTO PARA GUARDAR INFO EN LA BASE DE DATOS
 //ES DE TIPO POST
 //el primer param es el endpoint y que recibe un func con request y response
-router.post('/registrar-descuento', function(req, res){
+router.post('/registrar-impuesto', function(req, res){
     let body = req.body;
     //esto es una referencia al modelo de productos permite darle .save() en mongo de una
     let nuevo_impuesto = new Impuesto({
-        id_codigo : body.id_codigo,
         nombre : body.nombre,
-        porcentaje : body.porcentaje
+        porcentaje : body.porcentaje,
+        estado : body.estado
     });
     //cuando se salva sea que haya error o buena respuesta siempre hay que revolver una respuesta
     nuevo_impuesto.save(
@@ -37,7 +37,7 @@ router.post('/registrar-descuento', function(req, res){
     });
 });
 
-router.get('/registrar-descuento', function(req, res){
+router.get('/registrar-impuesto', function(req, res){
     Impuesto.find(
         function(err,ImpuestosBD){
             if(err){
@@ -49,7 +49,7 @@ router.get('/registrar-descuento', function(req, res){
             } else {
                 res.json({
                     resultado: true,
-                    productos: ImpuestosBD
+                    impuestos: ImpuestosBD
                 })
             }
         }
