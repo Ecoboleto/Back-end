@@ -18,14 +18,13 @@ const organizador_evento_schema = new Schema({
     nombre_comercial: { type: String, required: true },
     anos_experiencia: { type: String, required: true },
     provincia:{ type: String, required: true },
-    cantos:{ type: String, required: true },
+    canton:{ type: String, required: true },
     distrito:{ type: String, required: true },
     direccion_exacta:{ type: String, required: true },
 
     //Contato asociado   
     telefonos:[{ type:String, required: true}],    
     genero:{ type: String },
-    fecha_nacimiento: { type: String, required: true },
     edad: { type: Number, required: true },
 },{ collection: 'usuarios' });
 
