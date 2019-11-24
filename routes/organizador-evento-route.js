@@ -39,9 +39,6 @@ router.post('/registrar-organizador-evento', async function (req, res) {
     const edad = req.body.edad;
 
     try {
-        nombre_completo = "Juan Carlos Moscoso A";
-        correo_electronico = "jmoscosoa@ucenfotec.ac.cr";
-
         correo_electronico = correo_electronico.trim().toLowerCase();
         const resultados = await Usuario_general.find({ correo_electronico });
         if (resultados.length != 0) {
