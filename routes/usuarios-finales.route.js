@@ -107,8 +107,7 @@ router.post('/registrar-usuarios-finales', function (req, res) {
                     width: 50%;
                     margin: 0 auto;
                   }
-
-                  
+                
                   </style>
                   </head>
                   <body class="wrapper">
