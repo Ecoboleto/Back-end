@@ -2,14 +2,14 @@
 
 const express = require('express'),
     router = express.Router(),
-    /*Recintos = require('../models/recintos.model'),
+    Recintos = require('../models/recinto.model'),
     Impuestos = require('../models/impuestos.model'),
-    Descuentos = require('../models/descuentos.model'),*/
+    Descuentos = require('../models/descuentos.model'),
     Eventos = require('../models/eventos.model'),
     mongoose = require('mongoose');
 
 
-/*router.get('/listar-recinto-evento', function (req, res) {
+router.get('/listar-recinto-evento', function (req, res) {
     Recintos.find(
         function (err, recintosBD) {
             if (err) {
@@ -64,19 +64,18 @@ router.get('/listar-descuentos', function (req, res) {
             }
         }
     );
-});*/
+});
 
 
 router.post('/registrar-evento', function (req, res) {
     let body = req.body;
-    let upd = body._id
+    let upd = body._id;
     let nombre_evento = body.nombre_evento.charAt(0).toUpperCase() + body.nombre_evento.substr(1).toLowerCase()
     let nuevo_evento = new Eventos({
-        organizador_evento: body.organizador_evento,
         nombre_evento,
-        tipo_evento: body.tipo_evento_nombre,
+        tipo_evento: body.tipo_evento,
         foto_evento: body.foto_evento,
-        recinto_evento: body.recinto_evento_nombre,
+        recinto_evento: body.recinto_evento,
         descripcion_evento: body.descripcion_evento,
         entrada_evento: body.entrada_evento,
         asistentes_evento: body.asistentes_evento,
