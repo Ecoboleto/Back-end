@@ -73,6 +73,3 @@ app.use('/api', contrasenna);
 app.use('/api', recintos);
 app.use('/api', iniciar_seccion);
 app.use('/api', eventos);
-app.use('/api', recintos);
-app.use('/api', iniciar_seccion);
-app.use('/api', eventos);
