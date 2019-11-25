@@ -12,4 +12,4 @@ const usuario_general_Schema = new Schema({
     tipo_usuario: { type: String, required: true},
 }, { collection: 'usuarios' });
 
-module.exports = model('Usuario_general', usuario_general_Schema)
+module.exports = model('Usuario_general', usuario_general_Schema);

@@ -1,19 +1,16 @@
 'use strict';
 const { Router } = require('express');
 const nodeMailer = require('nodemailer');
-const Organizador_evento = require('../models/organizador-eventos-model');
-const Usuario_general = require('../models/Usuario-general-model');
+const Organizador_evento = require('../models/organizador-eventos.model');
 const router = Router();
 
 // crea una cadena alfanumérica aleatoria de tamaño deseado
-const Crear_contrasenna = (tamano) => {
-    const caracteres = '0123456789abcdefgñhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    let resultado = '';
-
+const crear_contrasenna = (tamano) => {
+    let resultado = "";
+    const caracteres = '0123456789$%#@+abcdefgñhijklmnopqrÑstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     for (let i = tamano; i > 0; --i) {
         resultado += caracteres[Math.floor(Math.random() * caracteres.length)];
     }
-
     return resultado;
 };
 
@@ -26,29 +23,20 @@ router.post('/registrar-organizador-evento', async function (req, res) {
     const nombre_comercial = req.body.nombre_comercial;
     const anos_experiencia = req.body.anos_experiencia;
     const provincia = req.body.provincia;
-    const cantos = req.body.cantos;
+    const canton = req.body.canton;
     const distrito = req.body.distrito;
     const direccion_exacta = req.body.direccion_exacta;
 
     //Contato asociado
     let correo_electronico = req.body.correo_electronico;
-    let nombre_completo = req.body.nombre_completo;
+    const nombre_completo = req.body.nombre_completo;
     const telefonos = req.body.telefonos;
     const genero = req.body.genero;
-    const fecha_nacimiento = req.body.fecha_nacimiento;
     const edad = req.body.edad;
 
     try {
-        correo_electronico = correo_electronico.trim().toLowerCase();
-        const resultados = await Usuario_general.find({ correo_electronico });
-        if (resultados.length != 0) {
-            const tipo = 'validacion'
-            const msg = 'EL correo electrónico se encuentra en uso, ingrese otro correo electrónico'
-            return res.json({ estado: false, tipo, msg });
-        }
-
         //Creamos el contrasena temporal
-        let contrasenna = Crear_contrasenna(7);
+        let contrasenna = crear_contrasenna(7);
 
         //creamos la url de verificación
         //const base_url = `http://localhost:5500/verificación`;
@@ -56,70 +44,8 @@ router.post('/registrar-organizador-evento', async function (req, res) {
         //const parammetro_usuario = `nombre-usuario=${nombre_completo}`;
         //const url_activacion = `${base_url}?${parammetro_token}&${parammetro_usuario}`;
 
-        const transporter = nodeMailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: 'ecoboleto@gmail.com',
-                pass: 'Ecoboleto123'
-            }
-        })
-
-        let mailOptions = {
-            from: 'ecoboleto@gmail.com',
-            to: correo_electronico,
-            subject: 'Bienvenido a EcoBoleto',
-            html: `<hhtml>
-            <head>
-              <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-              <style>
-               .wrapper{
-              background : #A3DE83;
-              font-family: 'Roboto', sans-serif;
-            }
-            .container{
-              margin: 0 auto;
-              background: #fff;
-              width: 500px;
-              text-align: center;
-              padding: 10px;
-            }
-            .boton{
-              background: #FA4659;
-              color: #FFF;
-              display: block;
-              padding: 15px;
-              text-decoration: none;
-              width: 50%;
-              margin: 0 auto;
-            }
-            </style>
-            </head>
-            <body class="wrapper">
-              <div class="container">
-                <h1>Bienvenido a EcoBoleto</h1>
-              <h2>Su boleteria en linea</h2>
-              
-              <p>Saludos ${nombre_completo} le agradecemos por escoger utilizar los servicios de EcoBoleto</p>
-              <p>El correo electrónico asociado es: ${correo_electronico} </p>
-              <p>Su contraseña temporal es: ${contrasenna}  </p>
-              <p>Para ingresar visite el siguiente<p> 
-                <a href="http://localhost:5500/vistas/iniciar-sesion.html" style="color:#FFF" class="boton">Ingresar a EcoBoleto</a>
-              </div>              
-            </body>            
-          </html>
-          Resources`
-        };
-
-        //enviamos el correo
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                const tipo = 'Envió corre electrónico';
-                const msg = 'No se pudo registrar el organizador de eventos y a su asociado';
-                return res.json({ estado: false, tipo, msg });
-            }
-        })
-
         //organizador de eventos
+        correo_electronico = correo_electronico.trim().toLowerCase();
         const encargado = new Organizador_evento({
             //Datos compartidos
             nombre_completo,
@@ -138,20 +64,84 @@ router.post('/registrar-organizador-evento', async function (req, res) {
             nombre_comercial,
             anos_experiencia,
             provincia,
-            cantos,
+            canton,
             distrito,
             direccion_exacta,
 
             //Contato asociado   
             telefonos,
             genero,
-            fecha_nacimiento,
             edad
         });
 
         //Guardamos el modelo en la BD
         await encargado.save().then(result => {
-            res.json({ estado: true, id: result._id })
+
+            const transporter = nodeMailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'ecoboleto@gmail.com',
+                    pass: 'Ecoboleto123'
+                }
+            })
+
+            let mailOptions = {
+                from: 'ecoboleto@gmail.com',
+                to: correo_electronico,
+                subject: 'Bienvenido a EcoBoleto',
+                html: `<hhtml>
+            <head>
+              <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+              <style>
+               .wrapper{
+              background : #A3DE83;
+              font-family: 'Roboto', sans-serif;
+            }
+            .container{
+              margin: 0 auto;
+              background: #fff;
+              width: 500px;
+              text-align: center;
+              padding: 10px;
+              color:#000;
+            }
+            .boton{
+              background: #FA4659;
+              color: #FFF;
+              display: block;
+              padding: 15px;
+              text-decoration: none;
+              width: 50%;
+              margin: 0 auto;
+            }
+            </style>
+            </head>
+            <body class="wrapper">
+              <div class="container">
+              <h1>Bienvenido a EcoBoleto</h1>
+              <h2>Su boleteria en linea</h2>
+              
+              <p>Saludos ${nombre_completo} le agradecemos por escoger utilizar los servicios de EcoBoleto</p>
+              <p>El correo electrónico asociado es: ${correo_electronico} </p>
+              <p>Su contraseña temporal es: ${contrasenna}  </p>
+              <p>Para ingresar visite el siguiente<p> 
+                <a href="http://localhost:5500/vistas/iniciar-sesion.html" style="color:#FFF" class="boton">Ingresar a EcoBoleto</a>
+              </div>              
+            </body>            
+            </html>
+            Resources`
+            };
+
+            //enviamos el correo
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    const tipo = 'Envió corre electrónico';
+                    const msg = 'No se pudo registrar el organizador de eventos y a su asociado';
+                    return res.json({ estado: false, tipo, msg });
+                }
+            });
+
+            res.json({ estado: true, id: result._id });
         })
     } catch (error) {
         //Capturamos los errores
