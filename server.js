@@ -14,9 +14,6 @@ const tarjetas = require('./routes/tarjeta.route');
 const impuesto = require('./routes/impuestos.route');
 const descuento = require('./routes/descuentos.route');
 const usuarios_finales = require('./routes/usuarios-finales.route');
-const contrasenna = require('./routes/recuperar-contrasenna.route');
-
-
 const recintos = require('./routes/recintos.route');
 const iniciar_seccion = require('./routes/iniciar-seccion.route');
 const eventos = require('./routes/evento.route');
@@ -71,8 +68,10 @@ app.use('/api', tarjetas);
 app.use('/api', impuesto);
 app.use('/api', descuento);
 app.use('/api', usuarios_finales);
-app.use('/api', contrasenna);
+
 app.use('/api', recintos);
 app.use('/api', iniciar_seccion);
 app.use('/api', eventos);
-
+app.use('/api', recintos);
+app.use('/api', iniciar_seccion);
+app.use('/api', eventos);
