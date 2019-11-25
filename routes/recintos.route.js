@@ -10,7 +10,7 @@ router.post('/registrar-recinto', async function (req, res) {
     const canton = req.body.canton;
     const distrito = req.body.distrito;
     const direccion_exacta = req.body.direccion_exacta;
-    const geolocalización = req.body.geolocalización;
+    const geolocalizacion = req.body.geolocalizacion;
     const capacidad_asientos_tradicionales = req.body.capacidad_asientos_tradicionales;
     const capacidad_asientos_especiales = req.body.capacidad_asientos_especiales;
     const capacidad = req.body.capacidad;
@@ -24,7 +24,7 @@ router.post('/registrar-recinto', async function (req, res) {
             canton,
             distrito,
             direccion_exacta,
-            geolocalización,
+            geolocalizacion,
             capacidad_asientos_tradicionales,
             capacidad_asientos_especiales,
             capacidad,
@@ -41,7 +41,7 @@ router.post('/registrar-recinto', async function (req, res) {
 
         if (error.code == '11000') {
             tipo = 'validacion'
-            msg = 'EL recinto se encuentra en ingrsado, ingrese otro recinto'
+            msg = 'EL recinto se encuentra en ingresado, ingrese otro recinto'
         } else {
             tipo = 'error'
             msg = 'No se pudo registrar el recinto';
