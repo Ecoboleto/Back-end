@@ -3,13 +3,11 @@
 
 const nodeMailer = require('nodemailer'),
     express = require('express'),
-    router = express.Router(),
     Usuario_final = require('../models/usuarios-final.model'),
+    mongoose = require('mongoose'),
+    router = express.Router();
 
-    mongoose = require('mongoose');
-
-
-
+    // http://localhost:3000/api/registrar-usuarios
 
 const transporter = nodeMailer.createTransport({
     service: 'gmail',
@@ -21,20 +19,19 @@ const transporter = nodeMailer.createTransport({
 
 
 // crea una cadena alfanumérica aleatoria de tamaño deseado
-const Crear_contrasenna = (tamano) => {
+    const Crear_contrasenna = (tamano) => {
     const caracteres = '0123456789$%#@+abcdefgñhijklmnopqrÑstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let resultado = ''; 
     for (let i = tamano; i > 0; --i) {
- resultado += caracteres[Math.floor(Math.random() * caracteres.length)];
+    resultado += caracteres[Math.floor(Math.random() * caracteres.length)];
     }
     return resultado;
 };
 
-router.post('/registrar-usuario-final', function (req, res) {
+router.post('/registrar-usuarios-finales', function (req, res) {
 
     const contrasenna = Crear_contrasenna(7);
-
     let body = req.body;
-
 
     let nuevo_usuario = new Usuario_final({
 
@@ -50,9 +47,11 @@ router.post('/registrar-usuario-final', function (req, res) {
         canton: body.canton,
         distrito: body.distrito,
         genero: body.genero,
-        avatar: body.avatar
+        avatar: body.avatar,
 
-        
+        token: "%5ebefrttgy56ju8l",
+        token_activo: true,
+        tipo_usuario: "usuario_final"
 
 
     });
