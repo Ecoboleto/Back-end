@@ -35,12 +35,10 @@ router.post('/registrar-usuarios-finales', function (req, res) {
 
     let nuevo_usuario = new Usuario_final({
 
-        correo: body.correo.trim().toLowerCase(),
-        primer_nombre: body.primer_nombre,
+        primer_nombre: body.primer_nombre,     
         segundo_nombre: body.segundo_nombre,
         primer_apellido: body.primer_apellido,
         segundo_apellido: body.segundo_apellido,
-        contrasenna,
         fecha_nacimiento: body.fecha_nacimiento,
         edad: body.edad,
         provincia: body.provincia,
@@ -49,18 +47,19 @@ router.post('/registrar-usuarios-finales', function (req, res) {
         genero: body.genero,
         avatar: body.avatar,
 
-        token: "%5ebefrttgy56ju8l",
+        //nombre_completo: { type: String, required: true },
+        correo_electronico: body.correo.trim().toLowerCase(),
+        contrasenna,
+        estado: true,
+        token: "Jsjdasj66asd8as",
         token_activo: true,
         tipo_usuario: "usuario_final"
-
-
     });
 
     nuevo_usuario.save(function (err, usuarioBD) {
 
 
         if (err) {
-
             if (error.code == '11000') {
                 res.json({
                     //siempre se debe devolver una respuesta
@@ -117,7 +116,7 @@ router.post('/registrar-usuarios-finales', function (req, res) {
                     
                     <p >Saludos ${nuevo_usuario.primer_nombre} le agradecemos por escoger  
                     los servicios de EcoBoleto</p>
-                    <p > correo electrónico asociado es: ${nuevo_usuario.correo} </p>
+                    <p > correo electrónico asociado es: ${nuevo_usuario.correo_electronico} </p>
                     <p>Su contraseña temporal es: ${nuevo_usuario.contrasenna}  </p>
                     <p>Para ingresar visite el siguiente<p> 
                       <a href="http://localhost:5500/vistas/iniciar-sesion.html" style = 'color: #FFF'class="boton">Ingresar a EcoBoleto</a>
