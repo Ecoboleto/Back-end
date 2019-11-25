@@ -8,6 +8,7 @@ require('dotenv').config();
 
 //Se declaran todos los accesos de los archivos routes.
 const tipos_eventos = require('./routes/registrar-tipo-evento.route');
+const encargado_recinto = require('./routes/encargado_recinto_route');
 const tarjetas = require('./routes/tarjeta.route');
 const impuesto = require('./routes/registro-impuest-route');
 const descuento = require('./routes/registro-descuent-route');
@@ -56,6 +57,8 @@ function handleError(res, reason, message, code) {
 }
 
 // Conexión a todas la rutas.
+app.use('/api', encargado_recinto);
+app.use('/api', tipos_eventos);
 app.use('/api', tipos_eventos);
 app.use('/api', tarjetas);
 app.use('/api', impuesto);
