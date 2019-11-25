@@ -16,6 +16,7 @@ const descuento = require('./routes/descuentos.route');
 const usuarios_finales = require('./routes/usuarios-finales.route');
 const recintos = require('./routes/recintos.route');
 const iniciar_seccion = require('./routes/iniciar-seccion.route');
+const eventos = require('./routes/evento.route');
 
 const app = express();
 app.use(cors());
@@ -69,3 +70,4 @@ app.use('/api', descuento);
 app.use('/api', usuarios_finales);
 app.use('/api', recintos);
 app.use('/api', iniciar_seccion);
+app.use('/api', eventos);
