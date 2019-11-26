@@ -79,7 +79,7 @@ router.post('/registrar-usuarios-finales', function (req, res) {
 
             let mailOptions = {
                 from: 'ecoboleto@gmail.com',
-                to: nuevo_usuario.correo,
+                to: nuevo_usuario.correo_electronico,
                 subject: 'Bienvenido a EcoBoleto',
                 html: `<hhtml>
                   <head>
