@@ -38,7 +38,7 @@ router.post('/registrar-descuento', function(req, res){
     });
 });
 
-router.get('/registrar-descuento', function(req, res){
+router.get('/listar-descuento', function(req, res){
     Descuento.find(
         function(err,DescuentosBD){
             if(err){
