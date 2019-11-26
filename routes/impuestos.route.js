@@ -37,19 +37,19 @@ router.post('/registrar-impuesto', function(req, res){
     });
 });
 
-router.get('/registrar-impuesto', function(req, res){
+router.get('/listar-impuestos', function (req, res) {
     Impuesto.find(
-        function(err,ImpuestosBD){
-            if(err){
+        function (err, impuestosBD) {
+            if (err) {
                 res.json({
                     resultado: false,
-                    msg:'No se encontraron impuestos',
+                    msg: 'No se encontraron tipos de eventos',
                     err
                 });
             } else {
                 res.json({
                     resultado: true,
-                    impuestos: ImpuestosBD
+                    impuestos: impuestosBD
                 })
             }
         }
