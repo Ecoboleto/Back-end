@@ -32,7 +32,7 @@ router.post('/registrar-organizador-evento', async function (req, res) {
     const nombre_completo = req.body.nombre_completo;
     const telefonos = req.body.telefonos;
     const genero = req.body.genero;
-    const edad = req.body.edad;
+    const fecha = req.body.fecha;
 
     try {
         //Creamos el contrasena temporal
@@ -71,7 +71,7 @@ router.post('/registrar-organizador-evento', async function (req, res) {
             //Contato asociado   
             telefonos,
             genero,
-            edad
+            fecha
         });
 
         //Guardamos el modelo en la BD

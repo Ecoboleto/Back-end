@@ -25,7 +25,7 @@ const organizador_evento_schema = new Schema({
     //Contato asociado   
     telefonos:[{ type:String, required: true}],    
     genero:{ type: String },
-    edad: { type: Number, required: true },
+    fecha: { type: Date, required: true },
 },{ collection: 'usuarios' });
 
 module.exports = model('Organizador_eventos',organizador_evento_schema);
