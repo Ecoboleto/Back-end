@@ -138,10 +138,10 @@ router.post('/registrar-organizador-evento', async function (req, res) {
                     const tipo = 'Envió corre electrónico';
                     const msg = 'No se pudo registrar el organizador de eventos y a su asociado';
                     return res.json({ estado: false, tipo, msg });
+                } else {
+                    res.json({ estado: true, id: result._id });
                 }
             });
-
-            res.json({ estado: true, id: result._id });
         })
     } catch (error) {
         //Capturamos los errores
