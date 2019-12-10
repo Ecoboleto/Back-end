@@ -89,31 +89,31 @@ router.post('/registrar-organizador-evento', async function (req, res) {
                 from: 'ecoboleto@gmail.com',
                 to: correo_electronico,
                 subject: 'Bienvenido a EcoBoleto',
-                html: `<hhtml>
+                html: `<html>
             <head>
               <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
               <style>
                .wrapper{
-              background : #A3DE83;
-              font-family: 'Roboto', sans-serif;
-            }
-            .container{
-              margin: 0 auto;
-              background: #fff;
-              width: 500px;
-              text-align: center;
-              padding: 10px;
-              color:#000;
-            }
-            .boton{
-              background: #FA4659;
-              color: #FFF;
-              display: block;
-              padding: 15px;
-              text-decoration: none;
-              width: 50%;
-              margin: 0 auto;
-            }
+                    background : #A3DE83;
+                    font-family: 'Roboto', sans-serif;
+                }
+                .container{
+                    margin: 0 auto;
+                    background: #fff;
+                    width: 500px;
+                    text-align: center;
+                    padding: 10px;
+                    color:#000;
+                }
+                .boton{
+                    background: #FA4659;
+                    color: #FFF;
+                    display: block;
+                    padding: 15px;
+                    text-decoration: none;
+                    width: 50%;
+                    margin: 0 auto;
+                }
             </style>
             </head>
             <body class="wrapper">
@@ -149,7 +149,7 @@ router.post('/registrar-organizador-evento', async function (req, res) {
 
         if (error.code == '11000') {
             tipo = 'validacion'
-            msg = 'EL correo electrónico se encuentra en uso, ingrese otro correo electrónico'
+            msg = 'El correo electrónico se encuentra en uso, ingrese otro correo electrónico'
         } else {
             tipo = 'registro'
             msg = 'No se pudo registrar el organizador de eventos y a su asociado';
