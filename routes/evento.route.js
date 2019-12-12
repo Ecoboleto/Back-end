@@ -136,4 +136,25 @@ router.get('/listar-evento', function (req, res) {
 });
 
 
+router.get('/obtener-evento-id', function(req, res) {
+ 
+    let id = req.query._id;
+ 
+    Eventos.findOne({ _id: id }, function(err, eventosBD) {
+        if (err) {
+            return res.json({
+                success: false,
+                msj: 'No se encontró ningún cliente con ese correo',
+                err
+            });
+        } else {
+            return res.json({
+                success: true,
+                eventos: eventosBD
+            });
+        }
+    })
+});
+
+
 module.exports = router;
