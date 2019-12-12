@@ -72,6 +72,7 @@ router.post('/registrar-evento', function (req, res) {
     let upd = body._id;
     let nombre_evento = body.nombre_evento.charAt(0).toUpperCase() + body.nombre_evento.substr(1).toLowerCase()
     let nuevo_evento = new Eventos({
+        organizador_evento: body.organizador_evento,
         nombre_evento,
         tipo_evento: body.tipo_evento,
         foto_evento: body.foto_evento,
