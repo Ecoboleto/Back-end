@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const evento_schema = new mongoose.Schema(
     {
-        organizador_evento: { type: String, required: false, unique: false },
+        organizador_evento: { type: String, required: true, unique: false },
         nombre_evento: { type: String, required: true, unique: true },
         tipo_evento: { type: String, required: true, unique: false },
         /*[{
