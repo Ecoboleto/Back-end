@@ -1,8 +1,15 @@
 'use strict';
-const { Router } = require('express');
-const nodeMailer = require('nodemailer');
+
+const nodeMailer = require('nodemailer'),
+    express = require('express'),
+    // Usuario_final = require('../models/usuarios-final.model'),
+    mongoose = require('mongoose'),
+    router = express.Router();
+
+// const { Router } = require('express');
+// const nodeMailer = require('nodemailer');
 const Organizador_evento = require('../models/organizador-eventos.model');
-const router = Router();
+// const router = Router();
 
 // crea una cadena alfanumérica aleatoria de tamaño deseado
 const crear_contrasenna = (tamano) => {
@@ -45,7 +52,7 @@ router.post('/registrar-organizador-evento', async function (req, res) {
         //const url_activacion = `${base_url}?${parammetro_token}&${parammetro_usuario}`;
 
         //organizador de eventos
-        correo_electronico = correo_electronico.trim().toLowerCase();
+        correo_electronico = correo_electronico.toLowerCase();
         const encargado = new Organizador_evento({
             //Datos compartidos
             nombre_completo,
@@ -75,7 +82,7 @@ router.post('/registrar-organizador-evento', async function (req, res) {
         });
 
         //Guardamos el modelo en la BD
-        await encargado.save().then(result => {
+        await encargado.save().then(async result => {
 
             const transporter = nodeMailer.createTransport({
                 service: 'gmail',
@@ -133,7 +140,7 @@ router.post('/registrar-organizador-evento', async function (req, res) {
             };
 
             //enviamos el correo
-            transporter.sendMail(mailOptions, function (error, info) {
+            await transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
                     const tipo = 'Envió corre electrónico';
                     const msg = 'No se pudo registrar el organizador de eventos y a su asociado';
@@ -167,6 +174,47 @@ router.get('/listar-organizador-evento', async function (req, res) {
         //Capturamos los errores
         res.json({ estado: false, tipo: 'error', msg: 'No se pudo listar en este momento los organizadores de eventos' });
     };
+});
+
+router.post('/modificar-organizador-evento', async function (req, res) {
+    let body = req.body;
+    console.log(body);
+
+    Organizador_evento.updateOne({ _id: req.body._id }, {
+        $set: {
+            //Datos del organizador de evento
+            nombre_empresa: req.body.nombre_empresa
+            // logo: body.log,
+            // nombre_comercial: body.nombre_comercial,
+            // anos_experiencia: body.anos_experiencia,
+            // provincia: body.provincia,
+            // canton: body.canton,
+            // distrito: body.distrito,
+            // direccion_exacta: body.direccion_exacta,
+
+            // //Contato asociado   
+            // nombre_completo: body.nombre_completo,
+            // correo_electronico: body.correo_electronico,
+            // contrasenna: body.contrasenna,
+            // telefonos: body.telefonos,
+            // genero: body.genero,
+            // fecha: body.fecha
+        },
+        function(error, info) {
+            if (error) {
+                res.json({
+                    resultado: false,
+                    msg: 'No se pudo modificar el organizador de eventos',
+                    err
+                });
+            } else {
+                res.json({
+                    resultado: true,
+                    info: info
+                });
+            }
+        }
+    })
 });
 
 //permite enlazar y exportar el modulo
