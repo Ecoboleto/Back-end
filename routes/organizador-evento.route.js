@@ -175,32 +175,48 @@ router.get('/listar-organizador-evento', async function (req, res) {
     };
 });
 
-router.post('/modificar-organizador-evento', async function (req, res) {
+router.get('/listar-organizador-evento-id', function (req, res) {
+    let _id = req.query._id;
+    Organizador_evento.findOne({ _id: _id },
+        function (err, usuariosBD) {
+            if (err) {
+                return res.json({
+                    resultado: false,
+                    msg: 'No se pudo listar en este momento los organizadores de eventos',
+                    err
+                });
+            } else {
+                return res.json({
+                    resultado: true,
+                    organizador_evento: usuariosBD
+                });
+            }
+        }
+    );
+});
+
+router.post('/modificar-organizador-evento', function (req, res) {
     let body = req.body;
-    console.log(body);
-
-    Organizador_evento.updateOne({ _id: req.body._id }, {
+    Organizador_evento.updateOne({ _id: body._id }, {
         $set: {
-            //Datos del organizador de evento
-            nombre_empresa: req.body.nombre_empresa
-            // logo: body.log,
-            // nombre_comercial: body.nombre_comercial,
-            // anos_experiencia: body.anos_experiencia,
-            // provincia: body.provincia,
-            // canton: body.canton,
-            // distrito: body.distrito,
-            // direccion_exacta: body.direccion_exacta,
-
-            // //Contato asociado   
-            // nombre_completo: body.nombre_completo,
-            // correo_electronico: body.correo_electronico,
-            // contrasenna: body.contrasenna,
-            // telefonos: body.telefonos,
-            // genero: body.genero,
-            // fecha: body.fecha
-        },
-        function(error, info) {
-            if (error) {
+            nombre_empresa: body.nombre_empresa,
+            logo: body.log,
+            nombre_comercial: body.nombre_comercial,
+            anos_experiencia: body.anos_experiencia,
+            provincia: body.provincia,
+            canton: body.canton,
+            distrito: body.distrito,
+            direccion_exacta: body.direccion_exacta,
+            nombre_completo: body.nombre_completo,
+            correo_electronico: body.correo_electronico,
+            contrasenna: body.contrasenna,
+            telefonos: body.telefonos,
+            genero: body.genero,
+            fecha: body.fecha
+        }
+    },
+        function (err, usuariosBD) {
+            if (err) {
                 res.json({
                     resultado: false,
                     msg: 'No se pudo modificar el organizador de eventos',
@@ -209,11 +225,11 @@ router.post('/modificar-organizador-evento', async function (req, res) {
             } else {
                 res.json({
                     resultado: true,
-                    info: info
-                });
+                    usuariosBD
+                })
             }
         }
-    })
+    )
 });
 
 //permite enlazar y exportar el modulo
