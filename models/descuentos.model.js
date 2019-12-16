@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 
 const descuento_schema = new mongoose.Schema({
     /*Aqui van las definiciones que vimos en pizarra */
+    //id: { type: String, required: false, unique: true },
     nombre: { type: String, required: false, unique: true },
     porcentaje: { type: Number, required: false, unique: false},
     estado: { type: String, required: false, unique: false }

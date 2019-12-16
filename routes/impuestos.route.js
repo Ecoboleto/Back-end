@@ -21,7 +21,7 @@ router.post('/registrar-impuesto', function(req, res){
     });
     //cuando se salva sea que haya error o buena respuesta siempre hay que revolver una respuesta
     nuevo_impuesto.save(
-        function(err, Impuesto){
+        function(err, impuestosBD){
             if(err){
                 res.json({
                     resultado: false,
@@ -31,7 +31,7 @@ router.post('/registrar-impuesto', function(req, res){
             }else{
                 res.json({
                     resultado:true,
-                    Impuesto
+                    impuestosBD
                 });
             }
     });
@@ -54,6 +54,69 @@ router.get('/listar-impuestos', function (req, res) {
             }
         }
     );
+});
+
+router.get('/modificar-impuesto-id',function(req,res){
+    let id = req.query._id;
+    Impuesto.findById({_id:id},function(err,impuestoBD){
+       if(err){
+           return res.json({
+                succes:false,
+                msj:'No se encontró ningún descuento',
+                err
+           });
+       } else{
+           return res.json({
+            succes:true,
+            impuesto:impuestoBD
+           });
+       }
+    })
+});
+
+router.post('/modificar-impuesto',function(req,res){
+    let body = req.body;
+    let id=body.id;
+    Impuesto.updateOne({_id:id},{
+        $set:req.body
+    },
+    function(err,info){
+        if(err){
+            res.json({
+                resultado:false,
+                msg:'No se pudo modificar el impuesto',
+                err
+            });
+        }else{
+            res.json({
+                resultado:true,
+                info:info
+            });
+        }
+    });
+});
+
+router.post('/modificar-estado-impuesto',function(req,res){
+    let body = req.body;
+    let id=body.id;
+    Impuesto.updateOne({_id:id},{
+        $set:req.body
+    },
+    function(err,info){
+        if(err){
+            res.json({
+                resultado:false,
+                msg:'No se pudo modificar el impuesto',
+                err
+            });
+        }else{
+            res.json({
+                resultado:true,
+                info:info
+
+            });
+        }
+    });
 });
 
 module.exports = router;
