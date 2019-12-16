@@ -12,7 +12,8 @@ const recinto_schema = new mongoose.Schema({
     capacidad_asientos_tradicionales: { type: String, required: true },
     capacidad_asientos_especiales: { type: String, required: true },
     capacidad: { type: String, required: true },
-    encargado_asociado_id:{ type: String, required: true }
+    encargado_asociado_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Encargado_recinto' },
+    estado: { type: Boolean, required: true }
 }, { collection: 'recinto' });
 
 module.exports = mongoose.model('Recinto', recinto_schema);

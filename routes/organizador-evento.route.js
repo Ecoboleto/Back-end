@@ -35,7 +35,7 @@ router.post('/registrar-organizador-evento', async function (req, res) {
     const direccion_exacta = req.body.direccion_exacta;
 
     //Contato asociado
-    let correo_electronico = req.body.correo_electronico;
+    const correo_electronico = req.body.correo_electronico.trim().toLowerCase();
     const nombre_completo = req.body.nombre_completo;
     const telefonos = req.body.telefonos;
     const genero = req.body.genero;
@@ -52,7 +52,6 @@ router.post('/registrar-organizador-evento', async function (req, res) {
         //const url_activacion = `${base_url}?${parammetro_token}&${parammetro_usuario}`;
 
         //organizador de eventos
-        correo_electronico = correo_electronico.toLowerCase();
         const encargado = new Organizador_evento({
             //Datos compartidos
             nombre_completo,
@@ -168,7 +167,7 @@ router.post('/registrar-organizador-evento', async function (req, res) {
 router.get('/listar-organizador-evento', async function (req, res) {
     try {
         //Buscamos todo los organizadores de eventos
-        const resultados = await Organizador_evento.find();
+        const resultados = await Organizador_evento.find({ 'tipo_usuario': 'organizador_evento' });
         res.json({ estado: true, datos: resultados });
     } catch (error) {
         //Capturamos los errores

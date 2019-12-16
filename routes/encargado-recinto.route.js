@@ -14,9 +14,53 @@ const Crear_contrasenna = (tamano) => {
     return resultado;
 };
 
+router.get('/obtener-encargado-recinto', async function (req, res) {
+    try {
+        //Buscamos todo los encargados de recintos
+        const resultados = await Encargado_recinto.findById(req.query.id);
+
+
+        res.json({ estado: true, datos: resultados });
+    } catch (error) {
+        //Capturamos los errores
+        res.json({ estado: false, tipo: 'error', msg: 'No se pudo listar en este momento los encargados de recintos' });
+    };
+});
+
+router.post('/modificar-encargado-recinto', async function (req, res) {
+    const id = req.body.id;
+
+    const nombre_completo = req.body.nombre_completo;
+    const fecha_nacimiento = req.body.fecha_nacimiento;
+    const telefonos = req.body.telefonos;
+    const genero = req.body.genero;
+    const edad = req.body.edad;
+
+    var value_para_actualizar = {
+            nombre_completo,
+
+            fecha_nacimiento,
+            telefonos,
+            genero,
+            edad
+    };
+    try {
+        await Encargado_recinto.findByIdAndUpdate(id, value_para_actualizar).then(result => {
+            res.json({ estado: true, id: result._id });
+        });
+    } catch (error) {
+        //Capturamos los errores
+        let tipo; let msg;
+        tipo = 'error'
+        msg = 'No se pudo modificar el encargado de recinto';
+        res.json({ estado: false, tipo, msg });
+    };
+});
+
+
 router.post('/registrar-encargado-recinto', async function (req, res) {
     const nombre_completo = req.body.nombre_completo;
-    let correo_electronico = req.body.correo_electronico;
+    const correo_electronico = req.body.correo_electronico.trim().toLowerCase();
     const fecha_nacimiento = req.body.fecha_nacimiento;
     const telefonos = req.body.telefonos;
     const genero = req.body.genero;
@@ -27,7 +71,6 @@ router.post('/registrar-encargado-recinto', async function (req, res) {
         let contrasenna = Crear_contrasenna(7);
 
         //Creamos un encargado de recinto
-        correo_electronico = correo_electronico.trim().toLowerCase();
         const encargado = new Encargado_recinto({
             //Datos compartidos
             nombre_completo,
@@ -130,7 +173,7 @@ router.post('/registrar-encargado-recinto', async function (req, res) {
 router.get('/listar-encargados-recinto', async function (req, res) {
     try {
         //Buscamos todo los encargados de recintos
-        const resultados = await Encargado_recinto.find();
+        const resultados = await Encargado_recinto.find({ "tipo_usuario": "encargado_de_recinto" });
         res.json({ estado: true, datos: resultados });
     } catch (error) {
         //Capturamos los errores
