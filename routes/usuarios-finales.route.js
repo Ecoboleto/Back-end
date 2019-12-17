@@ -60,7 +60,7 @@ router.post('/registrar-usuarios-finales', function (req, res) {
 
 
         if (err) {
-            if (error.code == '11000') {
+            if (err.code == '11000') {
                 res.json({
                     //siempre se debe devolver una respuesta
                     resultado: false,
@@ -117,7 +117,7 @@ router.post('/registrar-usuarios-finales', function (req, res) {
                     <p >Saludos ${nuevo_usuario.primer_nombre} le agradecemos por escoger  
                     los servicios de EcoBoleto</p>
                     <p > correo electrónico asociado es: ${nuevo_usuario.correo_electronico} </p>
-                    <p>Su contraseña temporal es: ${nuevo_usuario.contrasenna}  </p>
+                    <p>Su código de verificación es: ${nuevo_usuario.contrasenna}  </p>
                     <p>Para ingresar visite el siguiente<p> 
                       <a href="http://localhost:5500/vistas/iniciar-sesion.html" style = 'color: #FFF'class="boton">Ingresar a EcoBoleto</a>
                     </div>
