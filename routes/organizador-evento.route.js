@@ -198,22 +198,29 @@ router.get('/listar-organizador-evento-id', function (req, res) {
 router.post('/modificar-organizador-evento', function (req, res) {
     let body = req.body;
     Organizador_evento.updateOne({ _id: body._id }, {
-        $set: {
-            nombre_empresa: body.nombre_empresa,
-            logo: body.log,
-            nombre_comercial: body.nombre_comercial,
-            anos_experiencia: body.anos_experiencia,
-            provincia: body.provincia,
-            canton: body.canton,
-            distrito: body.distrito,
-            direccion_exacta: body.direccion_exacta,
-            nombre_completo: body.nombre_completo,
-            correo_electronico: body.correo_electronico,
-            contrasenna: body.contrasenna,
-            telefonos: body.telefonos,
-            genero: body.genero,
-            fecha: body.fecha
+        $set: req.body
+    },
+        function (err, usuariosBD) {
+            if (err) {
+                res.json({
+                    resultado: false,
+                    msg: 'No se pudo modificar el organizador de eventos',
+                    err
+                });
+            } else {
+                res.json({
+                    resultado: true,
+                    usuariosBD
+                })
+            }
         }
+    )
+});
+
+router.post('/modificar-organizador-evento-estado', function (req, res) {
+    let body = req.body;
+    Organizador_evento.updateOne({ _id: body._id }, {
+        $set: req.body
     },
         function (err, usuariosBD) {
             if (err) {
