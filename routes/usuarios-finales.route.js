@@ -188,7 +188,7 @@ router.get('/listar-usuario-final-id', function(req, res) {
 
 router.post('/modificar-usuarios-finales', function(req, res) {
     let body = req.body;
-    Usuario_final.updateOne({ _id: body.id}, {
+    Usuario_final.updateOne({ _id: body.idusuariofinal}, {
             $set: req.body
         },
         function(error, usuarioBD) {
@@ -210,7 +210,7 @@ router.post('/modificar-usuarios-finales', function(req, res) {
 
 router.post('/habilitar-usuarios-finales', function(req, res) {
     let body = req.body;
-    Usuario_final.updateOne({ _id: body._id }, {
+    Usuario_final.updateOne({ _id: body.idusuariofinal}, {
             $set: {
                 estado: true
             }
@@ -233,7 +233,7 @@ router.post('/habilitar-usuarios-finales', function(req, res) {
 
     router.post('/deshabilitar-usuarios-finales', function(req, res) {
         let body = req.body;
-        Usuario_final.updateOne({ _id: body._id }, {
+        Usuario_final.updateOne({ _id: body.idusuariofinal}, {
                 $set: {
                     estado: false
                 }
