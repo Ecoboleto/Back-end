@@ -50,7 +50,7 @@ router.post('/registrar-usuarios-finales', function (req, res) {
         //nombre_completo: { type: String, required: true },
         correo_electronico: body.correo.trim().toLowerCase(),
         contrasenna,
-        estado: "Habilitado",
+        estado: true,
         token: "Jsjdasj66asd8as",
         token_activo: true,
         tipo_usuario: "usuario_final"
