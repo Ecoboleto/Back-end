@@ -50,7 +50,7 @@ router.post('/registrar-usuarios-finales', function (req, res) {
         //nombre_completo: { type: String, required: true },
         correo_electronico: body.correo.trim().toLowerCase(),
         contrasenna,
-        estado: true,
+        estado: "Habilitado",
         token: "Jsjdasj66asd8as",
         token_activo: true,
         tipo_usuario: "usuario_final"
@@ -188,7 +188,7 @@ router.get('/listar-usuario-final-id', function(req, res) {
 
 router.post('/modificar-usuarios-finales', function(req, res) {
     let body = req.body;
-    Usuario_final.updateOne({ _id: body._id }, {
+    Usuario_final.updateOne({ idusuariofinal: body.idusuariofinal}, {
             $set: req.body
         },
         function(error, info) {
@@ -207,4 +207,51 @@ router.post('/modificar-usuarios-finales', function(req, res) {
         }
     )
 });
+
+router.post('/habilitar-usuarios-finales', function(req, res) {
+    let body = req.body;
+    Usuario_final.updateOne({ _id: body._id }, {
+            $set: {
+                estado: "Habilitado"
+            }
+        },
+        function(error, info) {
+            if (error) {
+                res.json({
+                    resultado: false,
+                    msg: 'No se pudo modificar el cliente',
+                    err
+                });
+            } else {
+                res.json({
+                    resultado: true,
+                    info: info
+                })
+            }
+        })
+    });
+
+    router.post('/deshabilitar-usuarios-finales', function(req, res) {
+        let body = req.body;
+        Usuario_final.updateOne({ _id: body._id }, {
+                $set: {
+                    estado: "Deshabilitado"
+                }
+            },
+            function(error, info) {
+                if (error) {
+                    res.json({
+                        resultado: false,
+                        msg: 'No se pudo modificar el cliente',
+                        err
+                    });
+                } else {
+                    res.json({
+                        resultado: true,
+                        info: info
+                    })
+                }
+            })
+        });
+    
 module.exports = router;
