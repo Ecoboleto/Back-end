@@ -5,33 +5,36 @@ const express = require("express"),
   Tarjeta = require("../models/tarjeta.model"),
   mongoose = require("mongoose");
 
-router.post("/registrar-persona", function(req, res) {
+router.post("/registrar-tarjeta", function (req, res) {
   let body = req.body;
-  let nuevo_persona = new Persona({
-    cedula: body.cedula,
+  let nueva_tarjeta = new Tarjeta({
+    id_usuario: body.id_usuario,
     nombre: body.nombre,
-    correo: body.correo,
-    estado: "activo"
+    numero: body.numero,
+    mes: body.mes,
+    anno: body.anno,
+    codigo: body.codigo,
+    estado: true
   });
 
-  nuevo_persona.save(function(err, personaBD) {
+  nueva_tarjeta.save(function (err, tarjetaBD) {
     if (err) {
       res.json({
         resultado: false,
-        msg: "La persona no se pudo registrar, ocurrió el siguiente error",
+        msg: "La tarjeta no se pudo registrar, ocurrió el siguiente error",
         err
       });
     } else {
       res.json({
         resultado: true,
-        personaBD
+        tarjetaBD
       });
     }
   });
 });
 
-router.get("/listar-personas", function(req, res) {
-  Persona.find(function(err, personasBD) {
+router.get("/listar-personas", function (req, res) {
+  Persona.find(function (err, personasBD) {
     if (err) {
       res.json({
         resultado: false,
