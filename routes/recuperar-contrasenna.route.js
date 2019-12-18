@@ -81,7 +81,7 @@ router.get('/recuperar-contrasenna', function (req, res) {
                             <p > correo electrónico asociado es: ${Usuario.correo} </p>
                             <p>Su contraseña temporal es: ${Usuario.contrasenna}  </p>
                             <p>Para ingresar visite el siguiente<p> 
-                              <a href="http://localhost:5500/vistas/iniciar-sesion.html" style = 'color: #FFF'class="boton">Ingresar a EcoBoleto</a>
+                              <a href="http://127.0.0.1:5500/vistas/iniciar-sesion.html" style = 'color: #FFF'class="boton">Ingresar a EcoBoleto</a>
                             </div>
                             
                           </body>
