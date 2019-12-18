@@ -49,4 +49,46 @@ router.get('/listar-tipo-evento', function(req, res) {
     );
 });
 
+router.get('/obtener-tipo-evento-id', function(req, res) {
+ 
+    let id = req.query._id;
+ 
+    Tipos_Eventos.findOne({ _id: id }, function(err, tipos_eventosBD) {
+        if (err) {
+            return res.json({
+                success: false,
+                msj: 'No se encontró ningún tipo de evento',
+                err
+            });
+        } else {
+            return res.json({
+                success: true,
+                tipos_eventos: tipos_eventosBD
+            });
+        }
+    })
+});
+
+router.post('/modificar-tipo-evento', function(req, res) {
+    let body = req.body;
+    Tipos_Eventos.findOneAndUpdate({ _id: body._id }, {
+            $set: req.body
+        },
+        function(error, info) {
+            if (error) {
+                res.json({
+                    resultado: false,
+                    msg: 'No se pudo modificar el tipo de evento',
+                    err
+                });
+            } else {
+                res.json({
+                    resultado: true,
+                    info: info
+                })
+            }
+        }
+    )
+});
+
 module.exports = router;
