@@ -131,7 +131,7 @@ router.post('/registrar-organizador-evento', async function (req, res) {
               <p>El correo electrónico asociado es: ${correo_electronico} </p>
               <p>Su contraseña temporal es: ${contrasenna}  </p>
               <p>Para ingresar visite el siguiente<p> 
-                <a href="http://127.0.0.1:5500/vistas/iniciar-sesion.html" style="color:#FFF" class="boton">Ingresar a EcoBoleto</a>
+                <a href="http://127.0.0.1:5500/vistas/inciar-sesion.html" style="color:#FFF" class="boton">Ingresar a EcoBoleto</a>
               </div>              
             </body>            
             </html>
