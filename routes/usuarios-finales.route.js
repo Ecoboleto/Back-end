@@ -166,5 +166,25 @@ router.get('/listar-filtrar-usuario-final', function (req, res) {
     );
 });
 
+router.get('/listar-usuario-final-id', function(req, res) {
+ 
+ 
+    let id = req.query._id;
+ 
+    Usuario_final.findOne({ _id: id }, function(err, usuarioBD) {
+        if (err) {
+            return res.json({
+                success: false,
+                msj: 'No se encontró ningún cliente con ese correo',
+                err
+            });
+        } else {
+            return res.json({
+                success: true,
+                cliente: usuarioBD
+            });
+        }
+    })
+});
 
 module.exports = router;
