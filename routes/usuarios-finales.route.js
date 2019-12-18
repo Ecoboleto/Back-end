@@ -188,7 +188,7 @@ router.get('/listar-usuario-final-id', function(req, res) {
 
 router.post('/modificar-usuarios-finales', function(req, res) {
     let body = req.body;
-    Usuario_final.updateOne({ idusuariofinal: body.idusuariofinal}, {
+    Usuario_final.updateOne({ _id: body.id}, {
             $set: req.body
         },
         function(error, info) {
@@ -196,7 +196,7 @@ router.post('/modificar-usuarios-finales', function(req, res) {
                 res.json({
                     resultado: false,
                     msg: 'No se pudo modificar el cliente',
-                    err
+                    error
                 });
             } else {
                 res.json({
@@ -212,7 +212,7 @@ router.post('/habilitar-usuarios-finales', function(req, res) {
     let body = req.body;
     Usuario_final.updateOne({ _id: body._id }, {
             $set: {
-                estado: "Habilitado"
+                estado: true
             }
         },
         function(error, info) {
@@ -220,7 +220,7 @@ router.post('/habilitar-usuarios-finales', function(req, res) {
                 res.json({
                     resultado: false,
                     msg: 'No se pudo modificar el cliente',
-                    err
+                    error
                 });
             } else {
                 res.json({
@@ -235,7 +235,7 @@ router.post('/habilitar-usuarios-finales', function(req, res) {
         let body = req.body;
         Usuario_final.updateOne({ _id: body._id }, {
                 $set: {
-                    estado: "Deshabilitado"
+                    estado: false
                 }
             },
             function(error, info) {
@@ -243,7 +243,7 @@ router.post('/habilitar-usuarios-finales', function(req, res) {
                     res.json({
                         resultado: false,
                         msg: 'No se pudo modificar el cliente',
-                        err
+                        error
                     });
                 } else {
                     res.json({
