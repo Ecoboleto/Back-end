@@ -168,8 +168,7 @@ router.get('/listar-filtrar-usuario-final', function (req, res) {
 
 router.get('/listar-usuario-final-id', function(req, res) {
  
- 
-    let id = req.query._id;
+     let id = req.query._id;
  
     Usuario_final.findOne({ _id: id }, function(err, usuarioBD) {
         if (err) {
@@ -187,4 +186,25 @@ router.get('/listar-usuario-final-id', function(req, res) {
     })
 });
 
+router.post('/modificar-usuarios-finales', function(req, res) {
+    let body = req.body;
+    Usuario_final.updateOne({ _id: body._id }, {
+            $set: req.body
+        },
+        function(error, info) {
+            if (error) {
+                res.json({
+                    resultado: false,
+                    msg: 'No se pudo modificar el cliente',
+                    err
+                });
+            } else {
+                res.json({
+                    resultado: true,
+                    info: info
+                })
+            }
+        }
+    )
+});
 module.exports = router;
