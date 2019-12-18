@@ -159,7 +159,7 @@ router.get('/listar-filtrar-usuario-final', function (req, res) {
             } else {
                 res.json({
                     resultado: true,
-                    clientes: usuarioBD
+                    usuarioBD
                 })
             }
         }
@@ -191,7 +191,7 @@ router.post('/modificar-usuarios-finales', function(req, res) {
     Usuario_final.updateOne({ _id: body.id}, {
             $set: req.body
         },
-        function(error, info) {
+        function(error, usuarioBD) {
             if (error) {
                 res.json({
                     resultado: false,
@@ -201,7 +201,7 @@ router.post('/modificar-usuarios-finales', function(req, res) {
             } else {
                 res.json({
                     resultado: true,
-                    info: info
+                    usuarioBD
                 })
             }
         }
@@ -215,7 +215,7 @@ router.post('/habilitar-usuarios-finales', function(req, res) {
                 estado: true
             }
         },
-        function(error, info) {
+        function(error, usuarioBD) {
             if (error) {
                 res.json({
                     resultado: false,
@@ -225,7 +225,7 @@ router.post('/habilitar-usuarios-finales', function(req, res) {
             } else {
                 res.json({
                     resultado: true,
-                    info: info
+                    usuarioBD
                 })
             }
         })
@@ -238,7 +238,7 @@ router.post('/habilitar-usuarios-finales', function(req, res) {
                     estado: false
                 }
             },
-            function(error, info) {
+            function(error, usuarioBD) {
                 if (error) {
                     res.json({
                         resultado: false,
@@ -248,7 +248,7 @@ router.post('/habilitar-usuarios-finales', function(req, res) {
                 } else {
                     res.json({
                         resultado: true,
-                        info: info
+                        usuarioBD
                     })
                 }
             })
