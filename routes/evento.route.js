@@ -157,5 +157,27 @@ router.get('/obtener-evento-id', function(req, res) {
     })
 });
 
+router.post('/modificar-evento', function(req, res) {
+    let body = req.body;
+    Eventos.findOneAndUpdate({ _id: body._id }, {
+            $set: req.body
+        },
+        function(error, info) {
+            if (error) {
+                res.json({
+                    resultado: false,
+                    msg: 'No se pudo modificar el tipo de evento',
+                    err
+                });
+            } else {
+                res.json({
+                    resultado: true,
+                    info: info
+                })
+            }
+        }
+    )
+});
+
 
 module.exports = router;
